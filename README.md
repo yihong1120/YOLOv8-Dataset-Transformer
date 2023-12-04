@@ -52,13 +52,18 @@ pip install -r requirements.txt
 
     Validate, predict, and export your model using options in the `train.py` script.
 
-### Contributing
+## To do
+
+Train and demonstrate the model and computed the parameters of experiments.
+
+## Contributing
 
 Contributions to the YOLOv8-Dataset-Transformer are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for more information.
+We fetch the [train20X20 dataset](https://github.com/apoorva-dave/LicensePlateDetector/tree/master/train20X20) from [apoorva-dave](https://github.com/apoorva-dave) and [irrelevant](./irrelevant) images from Google image.
 
-### License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
 ### Acknowledgements
 
