@@ -105,7 +105,7 @@ class DatasetCreator:
                     int(img.width * scale_factor),
                     int(img.height * scale_factor),
                 )
-                img = img.resize(new_size, Image.ANTIALIAS)
+                img = img.resize(new_size, Image.Resampling.LANCZOS) 
 
             # Find a position to paste where the image does not overlap
             for _ in range(
@@ -311,4 +311,4 @@ if __name__ == "__main__":
     creator.split_dataset(train_ratio=args.train_ratio)
     creator.create_data_yaml()  
 
-    # python dataset_preparation.py --markers train20X20 --irrelevant irrelevant --output output
+    # python dataset_preparation.py --markers train20X20 --irrelevant irrelevant --output output --total_images 7000 --train_ratio 0.9
