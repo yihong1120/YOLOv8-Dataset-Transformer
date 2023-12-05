@@ -138,7 +138,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--data_config",
         type=str,
-        default="data.yaml",
+        default="output/data.yaml",
         help="Path to the data configuration file",
     )
     parser.add_argument(
