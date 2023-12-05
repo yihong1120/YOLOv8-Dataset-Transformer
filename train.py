@@ -3,6 +3,7 @@ import torch
 from typing import Any, Optional
 from ultralytics import YOLO
 
+
 class YOLOModelHandler:
     """Handles loading, training, validating, and predicting with YOLO models.
 
@@ -24,10 +25,10 @@ class YOLOModelHandler:
 
     def load_model(self) -> None:
         """Loads the YOLO model specified by the model name."""
-        if self.model_name.endswith('.yaml'):
+        if self.model_name.endswith(".yaml"):
             # Build a new model from scratch
             self.model = YOLO(self.model_name)
-        elif self.model_name.endswith('.pt'):
+        elif self.model_name.endswith(".pt"):
             # Load a pre-trained model (recommended for training)
             self.model = YOLO(self.model_name)
 
@@ -35,9 +36,13 @@ class YOLOModelHandler:
             if torch.backends.mps.is_available():
                 self.device = torch.device("mps")  # Use MPS if available
             elif torch.cuda.is_available():
-                self.device = torch.device("cuda")  # Use CUDA if MPS is unavailable but CUDA is
+                self.device = torch.device(
+                    "cuda"
+                )  # Use CUDA if MPS is unavailable but CUDA is
             else:
-                self.device = torch.device("cpu")   # Use CPU if neither MPS nor CUDA is available
+                self.device = torch.device(
+                    "cpu"
+                )  # Use CPU if neither MPS nor CUDA is available
 
         # Load the model onto the specified device
         if self.model:
@@ -111,7 +116,7 @@ class YOLOModelHandler:
             raise RuntimeError("The model is not loaded properly.")
         # Export the model to the desired format
         return self.model.export(format=export_format)
-    
+
     def save_model(self, save_path: str) -> None:
         """
         Saves the YOLO model to a .pt file.
@@ -125,15 +130,44 @@ class YOLOModelHandler:
         torch.save(self.model.state_dict(), save_path)
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Handle YOLO model training, validation, prediction, and exporting.')
-    
-    parser.add_argument('--data_config', type=str, default='data.yaml', help='Path to the data configuration file')
-    parser.add_argument('--epochs', type=int, default=100, help='Number of training epochs')
-    parser.add_argument('--model_name', type=str, default='yolov8n.pt', help='Name of the YOLO model file')
-    parser.add_argument('--export_format', type=str, default='onnx', help='Format to export the model to')
-    parser.add_argument('--onnx_path', type=str, default=None, help='Path to save the exported ONNX model')
-    parser.add_argument('--pt_path', type=str, default='model.pt', help='Path to save the trained model in .pt format')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Handle YOLO model training, validation, prediction, and exporting."
+    )
+
+    parser.add_argument(
+        "--data_config",
+        type=str,
+        default="data.yaml",
+        help="Path to the data configuration file",
+    )
+    parser.add_argument(
+        "--epochs", type=int, default=100, help="Number of training epochs"
+    )
+    parser.add_argument(
+        "--model_name",
+        type=str,
+        default="yolov8n.pt",
+        help="Name of the YOLO model file",
+    )
+    parser.add_argument(
+        "--export_format",
+        type=str,
+        default="onnx",
+        help="Format to export the model to",
+    )
+    parser.add_argument(
+        "--onnx_path",
+        type=str,
+        default=None,
+        help="Path to save the exported ONNX model",
+    )
+    parser.add_argument(
+        "--pt_path",
+        type=str,
+        default="model.pt",
+        help="Path to save the trained model in .pt format",
+    )
 
     args = parser.parse_args()
 
@@ -143,7 +177,11 @@ if __name__ == '__main__':
         handler.train_model(data_config=args.data_config, epochs=args.epochs)
         metrics = handler.validate_model()
         results = handler.predict_image("https://ultralytics.com/images/bus.jpg")
-        export_path = handler.export_model(export_format=args.export_format) if args.onnx_path is None else args.onnx_path
+        export_path = (
+            handler.export_model(export_format=args.export_format)
+            if args.onnx_path is None
+            else args.onnx_path
+        )
         handler.save_model(args.pt_path)
     except Exception as e:
         print(f"Error occurred: {e}")
