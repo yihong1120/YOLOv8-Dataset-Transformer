@@ -4,6 +4,7 @@ import os
 import random
 from PIL import Image, ImageOps, ImageFilter, ImageEnhance
 import cv2
+import yaml
 from tqdm import tqdm
 
 
@@ -14,7 +15,7 @@ class DatasetCreator:
         irrelevant_images_dir,
         output_dir,
         total_images,
-        images_per_label=3,
+        images_per_label=2,
     ):
         self.markers_dir = markers_dir
         self.irrelevant_images_dir = irrelevant_images_dir
@@ -81,6 +82,11 @@ class DatasetCreator:
 
     def paste_images(self, background_image, images_to_paste, labels, image_index):
         """Paste images on a background image without overlap and save labels"""
+
+        # 这段代码检查目标文件夹是否存在，如果不存在则创建该文件夹
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+
         background = Image.open(background_image).convert("RGBA")
         label_data = []
         pasted_areas = []  # List to keep track of pasted image areas
@@ -222,6 +228,19 @@ class DatasetCreator:
         with open(os.path.join(self.output_dir, "val.txt"), "w") as file:
             file.writelines([os.path.join(val_dir, f) + "\n" for f in val_images])
 
+    def create_data_yaml(self, n_classes, train_file="train.txt", val_file="val.txt"):
+        data = dict(
+            train=os.path.join(self.output_dir, train_file),
+            val=os.path.join(self.output_dir, val_file),
+            nc=n_classes,
+            names=[f.name for f in os.scandir(self.markers_dir) if f.is_dir()],
+        )
+
+        with open(
+            os.path.join(self.output_dir, "data.yaml"), "w", encoding="utf8"
+        ) as file:
+            yaml.dump(data, file, default_flow_style=False, sort_keys=False)
+
 
 if __name__ == "__main__":
     # Create ArgumentParser object
@@ -267,3 +286,4 @@ if __name__ == "__main__":
     )
     creator.create_dataset()
     creator.split_dataset(train_ratio=args.train_ratio)
+    creator.create_data_yaml(len(creator.marker_folders))
