@@ -151,8 +151,13 @@ class DatasetCreator:
         """Save the label data in YOLOv8 format"""
         with open(os.path.join(self.output_dir, label_file), "w") as file:
             for label in label_data:
+                # Convert the label name to its corresponding index
+                label_index = self.label_index.get(label[0], -1)
+                if label_index == -1:
+                    continue  # Skip if label name not found in index
+
                 file.write(
-                    f"{label[0]} {label[1]:.6f} {label[2]:.6f} {label[3]:.6f} {label[4]:.6f}\n"
+                    f"{label_index} {label[1]:.6f} {label[2]:.6f} {label[3]:.6f} {label[4]:.6f}\n"
                 )
 
     def create_dataset(self):
@@ -228,12 +233,23 @@ class DatasetCreator:
         with open(os.path.join(self.output_dir, "val.txt"), "w") as file:
             file.writelines([os.path.join(val_dir, f) + "\n" for f in val_images])
 
+    def create_label_index(self):
+        """ Create a mapping from label names to indices. """
+        self.label_index = {name: idx for idx, name in enumerate(os.listdir(self.markers_dir))}
+
     def create_data_yaml(self, n_classes, train_file="train.txt", val_file="val.txt"):
+        # 獲取當前工作目錄的絕對路徑
+        current_path = os.path.abspath(os.path.join(self.output_dir, ".."))
+
+        # 創建名稱與索引的字典
+        names_dict = {idx: name for idx, name in enumerate(os.listdir(self.markers_dir))}
+
         data = dict(
+            path=current_path,
             train=os.path.join(self.output_dir, train_file),
             val=os.path.join(self.output_dir, val_file),
             nc=n_classes,
-            names=[f.name for f in os.scandir(self.markers_dir) if f.is_dir()],
+            names=names_dict
         )
 
         with open(
@@ -284,6 +300,10 @@ if __name__ == "__main__":
     creator = DatasetCreator(
         args.markers, args.irrelevant, args.output, args.total_images
     )
+    
+    creator.create_label_index()  # Initialize label index mapping
     creator.create_dataset()
     creator.split_dataset(train_ratio=args.train_ratio)
     creator.create_data_yaml(len(creator.marker_folders))
+
+    # python dataset_preparation.py --markers train20X20 --irrelevant irrelevant --output output
