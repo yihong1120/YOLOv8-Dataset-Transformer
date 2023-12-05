@@ -1,0 +1,40 @@
+path: /content/gdrive/MyDrive/YOLOv8-Dataset-Transformer
+train: output/train.txt
+val: output/val.txt
+nc: 35
+names:
+  0: '5'
+  1: Y
+  2: D
+  3: C
+  4: J
+  5: M
+  6: H
+  7: '3'
+  8: X
+  9: Q
+  10: '4'
+  11: .DS_Store
+  12: '7'
+  13: '0'
+  14: '9'
+  15: R
+  16: U
+  17: '8'
+  18: T
+  19: F
+  20: A
+  21: S
+  22: N
+  23: '6'
+  24: Z
+  25: G
+  26: '1'
+  27: V
+  28: K
+  29: B
+  30: L
+  31: E
+  32: '2'
+  33: P
+  34: W
