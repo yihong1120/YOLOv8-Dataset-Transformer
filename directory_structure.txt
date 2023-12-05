@@ -1,0 +1,155 @@
+.
+├── LICENSE
+├── README.md
+├── dataset_preparation.py
+├── directory_structure.txt
+├── images
+│   ├── car.png
+│   └── thumbnail.jpg
+├── inference.py
+├── irrelevant
+│   ├── -473Wx593H-464415501-multi-MODEL.jpg
+│   ├── 00398-20230701_161858_237590-588035576-25-7-DPM++_202M_20Karras-musesErato_V2-fp32-no-ema.jpeg
+│   ├── 06-24-f-random-scenery-2.jpg
+│   ├── 09-15-e-random-scenery.jpg
+│   ├── 11755743-1486213602.webp
+│   ├── 20160720183644_1.jpg
+│   ├── 20160804-42640NNbat728008-R1-003.jpg
+│   ├── 308c57f0-2cc0-4fb6-97a3-417dbce1a1cc.jpg
+│   ├── 3509980-1530895025.webp
+│   ├── 4317-random-terrain-generator.png
+│   ├── 46fec04a273ccc1a380cb882615fafbd.jpg
+│   ├── 4842378_EHwQ1ez7fxrUEaglvgsrh3k9WPq1-ibqe4q32Wgf38U.jpg
+│   ├── 49675583756_a078ac45a9_b.jpg
+│   ├── 4e391a90da9641ff6ea74c6d94eed423.jpg
+│   ├── 6-23-2-1-19-42-59m.jpg
+│   ├── 7064352_medium_1572991286.jpg
+│   ├── 7165645685_8dbe1db741_b.jpg
+│   ├── 80d79040496883.5781e6228fd81.jpg
+│   ├── 9-23-2-1-19-45-2m.jpg
+│   ├── 948dbcdfbc53fe374093ac92ce702bcc9ca73848_hq.jpg
+│   ├── FgFWQe1aMAEDAXu.png
+│   ├── JCOEIhNg.jpg
+│   ├── Random-Objects-In-A-Surreal-Landscape-In-William-Ballester-Style-66365068-1.png
+│   ├── a4e70241-990c-4927-b1e5-d06cf4d97e4b.jpg
+│   ├── awzPRQx_460s.jpg
+│   ├── be14d246175477.584a2e3e32918.jpg
+│   ├── deec9cc0616240278774d9f664aaf374.jpeg
+│   ├── desktop-wallpaper-european-scenery-random-shooting-europe-in-the-spring-europe.jpg
+│   ├── fc090a1ba34085b30e3e0442a867c13a.jpg
+│   ├── flat,750x,075,f-pad,750x1000,f8f8f8.jpg
+│   ├── gbra,6x4,1000x1000-c,0,0,675,900.jpg
+│   ├── images (1).jpg
+│   ├── images (10).jpg
+│   ├── images (11).jpg
+│   ├── images (12).jpg
+│   ├── images (13).jpg
+│   ├── images (14).jpg
+│   ├── images (16).jpg
+│   ├── images (17).jpg
+│   ├── images (19).jpg
+│   ├── images (2).jpg
+│   ├── images (20).jpg
+│   ├── images (21).jpg
+│   ├── images (22).jpg
+│   ├── images (23).jpg
+│   ├── images (24).jpg
+│   ├── images (26).jpg
+│   ├── images (27).jpg
+│   ├── images (28).jpg
+│   ├── images (29).jpg
+│   ├── images (3).jpg
+│   ├── images (30).jpg
+│   ├── images (31).jpg
+│   ├── images (32).jpg
+│   ├── images (33).jpg
+│   ├── images (34).jpg
+│   ├── images (35).jpg
+│   ├── images (36).jpg
+│   ├── images (37).jpg
+│   ├── images (38).jpg
+│   ├── images (39).jpg
+│   ├── images (4).jpg
+│   ├── images (41).jpg
+│   ├── images (42).jpg
+│   ├── images (43).jpg
+│   ├── images (44).jpg
+│   ├── images (45).jpg
+│   ├── images (46).jpg
+│   ├── images (47).jpg
+│   ├── images (48).jpg
+│   ├── images (49).jpg
+│   ├── images (5).jpg
+│   ├── images (51).jpg
+│   ├── images (52).jpg
+│   ├── images (53).jpg
+│   ├── images (55).jpg
+│   ├── images (56).jpg
+│   ├── images (57).jpg
+│   ├── images (58).jpg
+│   ├── images (59).jpg
+│   ├── images (6).jpg
+│   ├── images (60).jpg
+│   ├── images (61).jpg
+│   ├── images (62).jpg
+│   ├── images (63).jpg
+│   ├── images (64).jpg
+│   ├── images (7).jpg
+│   ├── images (8).jpg
+│   ├── images (9).jpg
+│   ├── images.jpg
+│   ├── keivamp-randomlandscape1-small.jpg
+│   ├── q3v9hL8g.jpg
+│   ├── random-beautiful-scenery-printed-wall-painting-12-x-18-inch-product-images-orvmj04ne3z-p604491002-0-202309081234.jpg
+│   ├── random-best-photo_865967-77970.jpg
+│   ├── random-scenery-as-we.jpg
+│   ├── random-scenery-in-the.jpg
+│   ├── scenery.jpg
+│   ├── thai-adventure-landscape-photo-breathtaking-scenery-random-destination-thailand-generative-ai_684462-191.jpg
+│   └── villesf.jpg
+├── models
+│   ├── best.pt
+│   └── best.yaml
+├── requirements.txt
+├── run_yolov8.sh
+├── runs
+│   └── detect
+├── train.py
+├── train20X20
+│   ├── 0
+│   ├── 1
+│   ├── 2
+│   ├── 3
+│   ├── 4
+│   ├── 5
+│   ├── 6
+│   ├── 7
+│   ├── 8
+│   ├── 9
+│   ├── A
+│   ├── B
+│   ├── C
+│   ├── D
+│   ├── E
+│   ├── F
+│   ├── G
+│   ├── H
+│   ├── J
+│   ├── K
+│   ├── L
+│   ├── M
+│   ├── N
+│   ├── P
+│   ├── Q
+│   ├── R
+│   ├── S
+│   ├── T
+│   ├── U
+│   ├── V
+│   ├── W
+│   ├── X
+│   ├── Y
+│   └── Z
+└── yolov8n.pt
+
+41 directories, 112 files
