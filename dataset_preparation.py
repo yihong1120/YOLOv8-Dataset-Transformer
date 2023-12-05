@@ -15,13 +15,13 @@ class DatasetCreator:
         irrelevant_images_dir,
         output_dir,
         total_images,
-        images_per_label=2,
+        # images_per_label=2,
     ):
         self.markers_dir = markers_dir
         self.irrelevant_images_dir = irrelevant_images_dir
         self.output_dir = output_dir
         self.total_images = total_images
-        self.images_per_label = images_per_label
+        # self.images_per_label = images_per_label
 
         self.marker_folders = [
             os.path.join(markers_dir, f)
@@ -180,13 +180,15 @@ class DatasetCreator:
             for folder in self.marker_folders[:num_folders_to_select]:
                 folder_images = self.all_marker_images[folder]
                 if folder_images:  # Check if there are unused images in the folder
+                    # Randomly decide the number of images to select from each folder (between 2 to 4)
+                    num_images = random.randint(2, 4)
                     selected_from_folder = [
                         folder_images.pop()
-                        for _ in range(min(len(folder_images), self.images_per_label))
+                        for _ in range(min(len(folder_images), num_images))
                     ]
                 else:  # If all images in the folder have been used, randomly select
                     selected_from_folder = random.sample(
-                        self.list_images(folder), self.images_per_label
+                        self.list_images(folder), num_images
                     )
 
                 selected_images.extend(selected_from_folder)
@@ -237,9 +239,12 @@ class DatasetCreator:
         """ Create a mapping from label names to indices. """
         self.label_index = {name: idx for idx, name in enumerate(os.listdir(self.markers_dir))}
 
-    def create_data_yaml(self, n_classes, train_file="train.txt", val_file="val.txt"):
+    def create_data_yaml(self, train_file="train.txt", val_file="val.txt"):
         # 獲取當前工作目錄的絕對路徑
         current_path = os.path.abspath(os.path.join(self.output_dir, ".."))
+
+        # 計算類別數量，假設有一個額外的類別
+        n_classes = len(self.marker_folders) + 1
 
         # 創建名稱與索引的字典
         names_dict = {idx: name for idx, name in enumerate(os.listdir(self.markers_dir))}
@@ -301,9 +306,9 @@ if __name__ == "__main__":
         args.markers, args.irrelevant, args.output, args.total_images
     )
     
-    creator.create_label_index()  # Initialize label index mapping
+    creator.create_label_index()  # Initialise label index mapping
     creator.create_dataset()
     creator.split_dataset(train_ratio=args.train_ratio)
-    creator.create_data_yaml(len(creator.marker_folders))
+    creator.create_data_yaml()  
 
     # python dataset_preparation.py --markers train20X20 --irrelevant irrelevant --output output
